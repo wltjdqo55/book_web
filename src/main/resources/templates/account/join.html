@@ -1,0 +1,208 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>회원가입</title>
+</head>
+<body>
+<div id="app">
+    <table>
+        <caption>회원가입</caption>
+        <tr>
+            <td>이름</td>
+            <td>
+                <input type="text" placeholder="이름을 입력해주세요." v-model="user.userName" maxlength="20" >
+            </td>
+        </tr>
+        <tr>
+            <td>생년월일</td>
+            <td>
+                <input type="text" placeholder="8자리 입력 ex)19960415" maxlength="8" v-model="user.userBirth" >
+            </td>
+        </tr>
+        <tr>
+            <td>휴대폰번호</td>
+            <td><input type="text" placeholder="숫자만 입력해주세요(-제외)" v-model="user.userPhoneNumber" maxlength="20"></td>
+        </tr>
+        <tr>
+            <td>주소</td>
+            <td>
+                <input type="text" id="userPostAddress" placeholder="주소를 검색해주세요." v-model="user.userPostAddress" readonly>
+                <input type="text" id="userDetailAddress" placeholder="상세주소를 입력해주세요." v-model="user.userDetailAddress" :disabled="user.userPostAddress.length<1">
+                <input type="button" value="주소검색" class="userAddress_btn" @click="addressBtn()">
+            </td>
+        </tr>
+        <tr>
+            <td>이메일</td>
+            <td>
+                <input type="text" id="userEmail" placeholder="이메일 주소를 형식에 맞게 입력해주세요." v-model="user.userEmail" maxlength="50" >
+            </td>
+        </tr>
+    </table>
+    <br>
+    <div>
+        <input type="button" @click="userAdd()" value="회원가입">
+        <input type="button" @click="cancel()" value="취소">
+    </div>
+</div>
+
+<script src="//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
+<script src="/plugins/vueJs/vue.js"></script>
+<script src="/plugins/vueJs/vue.js"></script>
+<script type="text/javascript" src="/plugins/axios/axios.min.js"></script>
+<script src="/dist/jquery/jquery.js"></script>
+<script src="/dist/jquery/jquery.min.js"></script>
+<script src="/dist/js/toggles-list-filter.js"></script>
+<script src="/dist/js/vueCommon.js"></script>
+
+<!-- toastr -->
+<script src="/plugins/toastr/toastr.min.js"></script>
+
+<!-- toast ui tree -->
+<script src="/plugins/toastUiTree/tui-tree.js"></script>
+
+<!-- toast ui calender -->
+<script src="/plugins/toastUiCalender/toastui-calendar.min.js"></script>
+<script src="/plugins/toastUiCalender/toastui-calendar.ie11.min.js"></script>
+
+<script>
+    new Vue({
+        el : "#app",
+        data : {
+            user : {
+                userName : "",
+                userPhoneNumber : "",
+                userBirth : "",
+                userEmail : "",
+                userPostAddress : "",
+                userDetailAddress : ""
+            }
+
+        },
+        methods : {
+            addressBtn : function () {
+                  const vm = this;
+                  vm.user.userPostAddress = "";
+                  vm.user.userDetailAddress = "";
+
+                   new daum.Postcode({
+                  oncomplete: function(data) {
+                  var addr = ''; // 주소 변수
+                  var extraAddr = ''; // 참고항목 변수1
+
+                  if (data.userSelectedType === 'R') { // 사용자가 도로명 주소를 선택했을 경우
+                      addr = data.roadAddress;
+                  } else { // 사용자가 지번 주소를 선택했을 경우(J)
+                      addr = data.jibunAddress;
+                  }
+
+                  // 사용자가 선택한 주소가 도로명 타입일때 참고항목을 조합한다.
+                  if(data.userSelectedType === 'R'){
+                      if(data.bname !== '' && /[동|로|가]$/g.test(data.bname)){
+                          extraAddr += data.bname;
+                      }
+                      if(data.buildingName !== '' && data.apartment === 'Y'){
+                          extraAddr += (extraAddr !== '' ? ', ' + data.buildingName : data.buildingName);
+                      }
+                      if(extraAddr !== ''){
+                          extraAddr = ' (' + extraAddr + ')';
+                      }
+                      vm.user.userPostAddress = extraAddr;
+
+                  } else {
+                      vm.user.userPostAddress = '';
+                  }
+                      vm.user.userPostAddress = data.zonecode;
+                      vm.user.userPostAddress = addr;
+                  }
+              }).open();
+            },
+            userAdd : function () {
+                let vm = this;
+                if(!vm.userNameCheck(vm.user.userName)){
+                    return false;
+                }
+                else if(!vm.userBirthCheck(vm.user.userBirth)){
+                    return false;
+                }
+                else if(!vm.userPhoneNumberCheck(vm.user.userPhoneNumber)){
+                    return false;
+                }
+                else if(!vm.userAddressCheck(vm.user.userPostAddress)){
+                    return false;
+                }
+                else if(!vm.userEmailCheck(vm.user.userEmail)){
+                    return false;
+                }
+            },
+            userNameCheck : function (keyword) {
+                let vm = this;
+                if(keyword == null || keyword == ""){
+                    toastr.error("이름을 입력해주세요.");
+                    return false;
+                }
+                return true;
+            },
+            userBirthCheck : function (keyword) {
+                let vm = this;
+                if(keyword == null || keyword == "" || !vm.onlyNumberCheck(keyword)){
+                    toastr.error("생년월일을 숫자만 입력해주세요.");
+                    return false;
+                }
+                return true;
+            },
+            userPhoneNumberCheck : function (keyword) {
+                let vm = this;
+                if(keyword == null || keyword == "" || !vm.onlyNumberCheck(keyword)){
+                    toastr.error("휴대폰번호를 숫자만 입력해주세요.");
+                    return false;
+                }
+                return true;
+            },
+            onlyNumberCheck : function(keyword) {
+                let vm = this;
+                let check = /^[0-9]+$/;
+                if(check.test(keyword)) return true;
+
+                return false;
+            },
+            userAddressCheck : function (keyword) {
+                let vm = this;
+                if(keyword == "" || keyword == null){
+                    toastr.error("주소를 입력해주세요.");
+                    return false;
+                }
+                return true;
+            },
+            emailCheck : function (keyword) {
+                let vm = this;
+                let check = /^[0-9a-zA-Z]([-_.]?[0-9a-zA-Z])*@[0-9a-zA-Z]([-_.]?[0-9a-zA-Z])*\.[a-zA-Z]{2,5}$/i;
+                if(keyword == '' || keyword == null){
+                    toastr.error("이메일주소를 입력해주세요.");
+                    return false;
+                }
+                if(check.test(keyword)){
+                    toastr.error("이메일주소를 형식에 맞게 입력해주세요.");
+                    return false;
+                }
+                return true;
+            },
+
+            cancel : function () {
+                location.href = "/account/login"
+            }
+        },
+       filters: $.extend({}, vueFilters, {}),
+       computed: {},
+       watch: {},
+       created() {},
+       mounted() {
+           let vm = this;
+
+       }
+     })
+</script>
+
+
+</body>
+</html>

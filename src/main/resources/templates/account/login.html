@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>로그인화면</title>
+</head>
+<body>
+<div id="app">
+    <div>로그인</div><br>
+    <div>
+        <label for="userName">이름</label>
+        <div>
+            <input type="text" id="userName" placeholder="이름를 입력해주세요." maxlength="50" v-model="user.userName">
+        </div>
+    </div>
+    <br>
+    <div>
+        <div>주민등록번호</div>
+        <div>
+            <input type="text" id="securityNumber1" placeholder="6자리" maxlength="6" v-model="user.securityNumber1">-
+            <input type="password" id="securityNumber2" placeholder="7자리" maxlength="7" v-model="user.securityNumber2">
+        </div>
+    </div>
+    <br>
+    <div>
+        <div>
+            <button type="button" @click="login()">로그인</button>
+            <button type="button" @click="join()">회원가입</button>
+        </div>
+    </div>
+</div>
+<script src="/plugins/vueJs/vue.js"></script>
+<script src="/plugins/vueJs/vue.js"></script>
+<script type="text/javascript" src="/plugins/axios/axios.min.js"></script>
+<script src="/dist/jquery/jquery.js"></script>
+<script src="/dist/jquery/jquery.min.js"></script>
+<script src="/dist/js/toggles-list-filter.js"></script>
+<script src="/dist/js/vueCommon.js"></script>
+
+<script>
+    new Vue({
+        el : "#app",
+        data : {
+            user : {
+                userName : "",
+                securityNumber1 : "",
+                securityNumber1 : "",
+            }
+        },
+        methods : {
+            login : function () {
+
+            },
+            join : function () {
+                location.href = "/account/join"
+            }
+        },
+       filters: $.extend({}, vueFilters, {}),
+       computed: {},
+       watch: {},
+       created() {},
+       mounted() {
+       }
+     })
+</script>
+
+</body>
+</html>
