@@ -22,7 +22,7 @@
         </tr>
         <tr>
             <td>휴대폰번호</td>
-            <td><input type="text" placeholder="숫자만 입력해주세요(-제외)" v-model="user.userPhoneNumber" maxlength="20"></td>
+            <td><input type="text" placeholder="숫자만 입력해주세요(-제외)" v-model="user.userPhone" maxlength="11"></td>
         </tr>
         <tr>
             <td>주소</td>
@@ -71,7 +71,7 @@
         data : {
             user : {
                 userName : "",
-                userPhoneNumber : "",
+                userPhone : "",
                 userBirth : "",
                 userEmail : "",
                 userPostAddress : "",
@@ -125,7 +125,7 @@
                 else if(!vm.userBirthCheck(vm.user.userBirth)){
                     return false;
                 }
-                else if(!vm.userPhoneNumberCheck(vm.user.userPhoneNumber)){
+                else if(!vm.userPhoneCheck(vm.user.userPhone)){
                     return false;
                 }
                 else if(!vm.userAddressCheck(vm.user.userPostAddress)){
@@ -133,6 +133,28 @@
                 }
                 else if(!vm.userEmailCheck(vm.user.userEmail)){
                     return false;
+                }
+                else{
+                    let formData = new FormData();
+                    Object.keys(this.user).forEach((key) => {
+                        if(this.user[key]==null){
+                            formData.append(key, "");
+                        }
+                        else{
+                            formData.append(key, this.user[key]);
+                        }
+                    })
+                    axios.post('/account/userAddOK', formData)
+                        .then(response => {
+                          if(response.data != null) {
+                             location.href = '/main';
+                          } else {
+                            toartr.error("로그요청에 실패하였습니다.");
+                          }
+                      })
+                      .catch(error => {
+                          console.error("Error fetching data: ", error);
+                      })
                 }
             },
             userNameCheck : function (keyword) {
@@ -149,12 +171,20 @@
                     toastr.error("생년월일을 숫자만 입력해주세요.");
                     return false;
                 }
+                else if(keyword.length < 8){
+                    toastr.error("생년월일은 8자리 숫자여야합니다.");
+                    return false;
+                }
                 return true;
             },
-            userPhoneNumberCheck : function (keyword) {
+            userPhoneCheck : function (keyword) {
                 let vm = this;
                 if(keyword == null || keyword == "" || !vm.onlyNumberCheck(keyword)){
                     toastr.error("휴대폰번호를 숫자만 입력해주세요.");
+                    return false;
+                }
+                else if(keyword.length < 11) {
+                    toastr.error("휴대폰번호는 11자리 숫자여야합니다.");
                     return false;
                 }
                 return true;
@@ -174,14 +204,14 @@
                 }
                 return true;
             },
-            emailCheck : function (keyword) {
+            userEmailCheck : function (keyword) {
                 let vm = this;
                 let check = /^[0-9a-zA-Z]([-_.]?[0-9a-zA-Z])*@[0-9a-zA-Z]([-_.]?[0-9a-zA-Z])*\.[a-zA-Z]{2,5}$/i;
                 if(keyword == '' || keyword == null){
                     toastr.error("이메일주소를 입력해주세요.");
                     return false;
                 }
-                if(check.test(keyword)){
+                else if(!check.test(keyword)){
                     toastr.error("이메일주소를 형식에 맞게 입력해주세요.");
                     return false;
                 }
