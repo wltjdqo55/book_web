@@ -35,6 +35,11 @@ public class accountController {
     userVO.setAccount("회원");
     accountService.userAdd(userVO);
 
-    return "/account/userAdd";
+    return "/account/userAdd.html";
+  }
+
+  @GetMapping("/account/success")
+  public String success(){
+    return "/account/success.html";
   }
 }

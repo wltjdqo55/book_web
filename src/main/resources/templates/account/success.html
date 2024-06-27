@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>회원가입 성공화면</title>
+</head>
+<body>
+<div id="app">
+    회원가입이 완료 되였습니다.<br><br>
+    <input type="button" value="로그인하러가기" @click="login()">
+</div>
+</body>
+<script src="/plugins/vueJs/vue.js"></script>
+<script type="text/javascript" src="/plugins/axios/axios.min.js"></script>
+
+<script>
+    new Vue({
+        el : "#app",
+        data : {
+
+        },
+        methods : {
+            login : function () {
+                location.href = "/account/login";
+            },
+        },
+       filters: {},
+       computed: {},
+       watch: {},
+       created() {},
+       mounted() {
+       }
+     })
+</script>
+</html>

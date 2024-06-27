@@ -48,7 +48,6 @@
 
 <script src="//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
 <script src="/plugins/vueJs/vue.js"></script>
-<script src="/plugins/vueJs/vue.js"></script>
 <script type="text/javascript" src="/plugins/axios/axios.min.js"></script>
 <script src="/dist/jquery/jquery.js"></script>
 <script src="/dist/jquery/jquery.min.js"></script>
@@ -147,7 +146,7 @@
                     axios.post('/account/userAddOK', formData)
                         .then(response => {
                           if(response.data != null) {
-                             location.href = '/main';
+                             location.href = '/account/success';
                           } else {
                             toartr.error("로그요청에 실패하였습니다.");
                           }
