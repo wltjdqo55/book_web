@@ -5,7 +5,7 @@ import lombok.NoArgsConstructor;
 
 @Data
 @NoArgsConstructor
-public class userVO {
+public class accountVO {
 
   private long id;
 

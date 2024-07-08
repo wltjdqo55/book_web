@@ -1,12 +1,12 @@
 package com.prj.bookweb.entity.dto;
 
-import com.prj.bookweb.entity.entity.userEntity;
+import com.prj.bookweb.entity.entity.accountEntity;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
 @Data
 @NoArgsConstructor
-public class userDTO {
+public class accountDTO {
 
   long id;
 
@@ -24,7 +24,7 @@ public class userDTO {
 
   private String account;
 
-  public userDTO(userEntity entity) {
+  public accountDTO(accountEntity entity) {
     this.id = entity.getId();
     this.userName = entity.getUserName();
     this.userEmail = entity.getUserEmail();

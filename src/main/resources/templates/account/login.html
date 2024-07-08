@@ -15,10 +15,16 @@
     </div>
     <br>
     <div>
-        <div>주민등록번호</div>
+        <div>생년월일</div>
         <div>
-            <input type="text" id="securityNumber1" placeholder="6자리" maxlength="6" v-model="user.securityNumber1">-
-            <input type="password" id="securityNumber2" placeholder="7자리" maxlength="7" v-model="user.securityNumber2">
+            <input type="text" id="userBirth" placeholder="8자리 숫자를 입력해주세요." maxlength="8" v-model="user.userBirth">
+        </div>
+    </div>
+    <br>
+    <div>
+        <div>휴대폰번호</div>
+        <div>
+            <input type="text" id="userPhone" placeholder="숫자만 입력해주세요." maxlength="11" v-model="user.userPhone">
         </div>
     </div>
     <br>
@@ -36,19 +42,47 @@
 <script src="/dist/js/toggles-list-filter.js"></script>
 <script src="/dist/js/vueCommon.js"></script>
 
+<!-- toastr -->
+<script src="/plugins/toastr/toastr.min.js"></script>
+
+<!-- toast ui tree -->
+<script src="/plugins/toastUiTree/tui-tree.js"></script>
+
+<!-- toast ui calender -->
+<script src="/plugins/toastUiCalender/toastui-calendar.min.js"></script>
+<script src="/plugins/toastUiCalender/toastui-calendar.ie11.min.js"></script>
+
 <script>
     new Vue({
         el : "#app",
         data : {
             user : {
                 userName : "",
-                securityNumber1 : "",
-                securityNumber1 : "",
+                userBirth : "",
+                userPhone : ""
             }
         },
         methods : {
             login : function () {
-
+                let vm = this;
+                console.log(vm.user.userName + " " + vm.user.userBirth + " " + vm.user.userPhone);
+                axios.get('/account/loginCheck', {
+                        params : {
+                            userName : vm.user.userName,
+                            userBirth : vm.user.userBirth,
+                            userPhone : vm.user.userPhone
+                        }
+                    })
+                    .then(response => {
+                      if(response.data) {
+                         location.href = '/main';
+                      } else {
+                        toastr.error("입력한 정보가 올바르지 않습니다.");
+                      }
+                  })
+                  .catch(error => {
+                      console.error("Error fetching data: ", error);
+                  })
             },
             join : function () {
                 location.href = "/account/userAdd"

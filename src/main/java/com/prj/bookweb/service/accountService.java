@@ -1,9 +1,10 @@
 package com.prj.bookweb.service;
 
-import com.prj.bookweb.entity.dto.userDTO;
-import com.prj.bookweb.entity.entity.userEntity;
-import com.prj.bookweb.entity.vo.userVO;
-import com.prj.bookweb.repasitory.jpa.userRepository;
+import com.prj.bookweb.entity.dto.accountDTO;
+import com.prj.bookweb.entity.entity.accountEntity;
+import com.prj.bookweb.entity.vo.accountVO;
+import com.prj.bookweb.repasitory.jpa.accountRepository;
+import com.prj.bookweb.repasitory.queryDSL.accountQueryDSL;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -12,11 +13,16 @@ import org.springframework.transaction.annotation.Transactional;
 @RequiredArgsConstructor
 public class accountService {
 
-  private final userRepository userRepository;
+  private final accountRepository accountRepository;
+  private final accountQueryDSL accountQueryDSL;
 
   @Transactional
-  public void userAdd(userVO userVO){
+  public void userAdd(accountVO accountVO){
 
-    new userDTO(userRepository.save(new userEntity(userVO)));
+    new accountDTO(accountRepository.save(new accountEntity(accountVO)));
+  }
+
+  public boolean loginCheck(accountVO accountVO){
+    return accountQueryDSL.loginCheck(accountVO);
   }
 }
