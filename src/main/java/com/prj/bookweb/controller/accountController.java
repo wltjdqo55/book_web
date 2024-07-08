@@ -1,6 +1,9 @@
 package com.prj.bookweb.controller;
 
+import com.prj.bookweb.account.accountSession;
 import com.prj.bookweb.entity.vo.accountVO;
+import com.prj.bookweb.service.accountService;
+import jakarta.servlet.http.HttpSession;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -11,7 +14,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 @RequiredArgsConstructor
 public class accountController {
 
-  private final com.prj.bookweb.service.accountService accountService;
+  private final accountService accountService;
 
   @GetMapping("/")
   public String index(){
@@ -44,9 +47,13 @@ public class accountController {
 
   @GetMapping("/account/loginCheck")
   @ResponseBody
-  public boolean loginCheck(accountVO accountVO){
-    System.out.println(accountVO);
-    return accountService.loginCheck(accountVO);
+  public boolean loginCheck(accountVO accountVO, HttpSession session){
+    boolean flag = false;
+    if(accountService.loginCheck(accountVO)){
+      accountSession.setSession(accountVO, session, 3600);
+      flag = true;
+    }
+    return flag;
   }
 
   @GetMapping("/main")
