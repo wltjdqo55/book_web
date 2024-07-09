@@ -15,14 +15,15 @@ import java.util.List;
 public class accountQueryDSL {
 
   private final JPAQueryFactory jpaQueryFactory;
-  public boolean loginCheck(accountVO accountVO){
-    List<accountEntity> entity  = jpaQueryFactory
+  public accountEntity loginCheck(accountVO accountVO){
+
+    return jpaQueryFactory
         .selectFrom(QaccountEntity.accountEntity)
         .where(
             checkUserInfo(accountVO)
         )
-        .fetch();
-    return entity != null && !entity.isEmpty();
+        .fetchOne();
+
   }
 
   private BooleanExpression checkUserInfo(accountVO accountVO){

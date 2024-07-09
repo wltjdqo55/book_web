@@ -1,11 +1,13 @@
 package com.prj.bookweb.controller;
 
 import com.prj.bookweb.account.accountSession;
+import com.prj.bookweb.entity.dto.accountDTO;
 import com.prj.bookweb.entity.vo.accountVO;
 import com.prj.bookweb.service.accountService;
 import jakarta.servlet.http.HttpSession;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
@@ -49,15 +51,25 @@ public class accountController {
   @ResponseBody
   public boolean loginCheck(accountVO accountVO, HttpSession session){
     boolean flag = false;
-    if(accountService.loginCheck(accountVO)){
-      accountSession.setSession(accountVO, session, 3600);
+    if(accountService.loginCheck(accountVO)!=null){
+      accountDTO dto = new accountDTO(accountService.loginCheck(accountVO));
+      accountSession.setSession(dto, session, 3600);
       flag = true;
     }
     return flag;
   }
 
   @GetMapping("/main")
-  public String mainPage(){
+  public String mainPage(Model model, HttpSession session){
     return "/main.html";
+  }
+
+  @GetMapping("/account/getUserInfo")
+  @ResponseBody
+  public accountDTO getUserInfo(Model model, HttpSession session){
+    if(session.getAttribute("userInfo") != null){
+      return (accountDTO) session.getAttribute("userInfo");
+    }
+    return null;
   }
 }

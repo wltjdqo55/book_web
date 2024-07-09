@@ -1,0 +1,32 @@
+<div id="headerApp">
+    <header class="main-header">
+        <div>
+            <span id="user-name" class="user-name">{{userInfo.userName}}</span> <span>님 환영합니다.</span>
+        </div>
+        <div>
+            <a href="">마이페이지</a>
+        </div>
+        <div v-if="userInfo.account=='회원'">
+            <a href="">관리자모드</a>
+        </div>
+    </header>
+</div>
+
+<script src="/plugins/vueJs/vue.js"></script>
+<script type="text/javascript" src="/plugins/axios/axios.min.js"></script>
+<script>
+    new Vue({
+        el: '#headerApp',
+        data: {
+            userInfo: {}
+        },
+        created() {
+            // localStorage에서 데이터 가져오기
+            let storedUserInfo = localStorage.getItem('userInfo');
+            if (storedUserInfo) {
+                this.userInfo = JSON.parse(storedUserInfo);
+            }
+        }
+    });
+</script>
+
