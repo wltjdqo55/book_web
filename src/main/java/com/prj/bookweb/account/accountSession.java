@@ -1,16 +1,15 @@
 package com.prj.bookweb.account;
 
 
+import com.prj.bookweb.entity.dto.accountDTO;
 import com.prj.bookweb.entity.vo.accountVO;
 import jakarta.servlet.http.HttpSession;
 
 public class accountSession {
 
   //세션값 설정
-  public static void setSession(accountVO accountVO, HttpSession session, int time){
-    session.setAttribute("userName", accountVO.getUserName());
-    session.setAttribute("userPhone", accountVO.getUserPhone());
-    session.setAttribute("userBirth", accountVO.getUserBirth());
+  public static void setSession(accountDTO accountDTO, HttpSession session, int time){
+    session.setAttribute("userInfo", accountDTO);
     intervalSession(time, session);
   }
 

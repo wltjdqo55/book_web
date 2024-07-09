@@ -18,11 +18,10 @@ public class accountService {
 
   @Transactional
   public void userAdd(accountVO accountVO){
-
     new accountDTO(accountRepository.save(new accountEntity(accountVO)));
   }
 
-  public boolean loginCheck(accountVO accountVO){
+  public accountEntity loginCheck(accountVO accountVO){
     return accountQueryDSL.loginCheck(accountVO);
   }
 }

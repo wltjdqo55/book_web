@@ -1,0 +1,15 @@
+ .main-header {
+    width: 75%;
+    top: 10px;
+    right: 20%;
+    text-align: right;
+    font-size: 1.5em;
+    margin: 0 auto;
+}
+.main-header div {
+    margin-bottom: 15px;
+}
+/* user-name 클래스를 굵게 설정 */
+.user-name {
+    font-weight: bold;
+}
