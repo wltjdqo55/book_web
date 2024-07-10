@@ -52,8 +52,7 @@ public class accountController {
   public boolean loginCheck(accountVO accountVO, HttpSession session){
     boolean flag = false;
     if(accountService.loginCheck(accountVO)!=null){
-      accountDTO dto = new accountDTO(accountService.loginCheck(accountVO));
-      accountSession.setSession(dto, session, 3600);
+      accountSession.setSession(accountService.loginCheck(accountVO), session, 3600);
       flag = true;
     }
     return flag;

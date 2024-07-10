@@ -23,4 +23,9 @@ public class accountVO {
 
   private String account;
 
+  // 검색조건
+  private String searchOption;
+
+  private String searchKeyword;
+
 }

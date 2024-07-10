@@ -9,6 +9,10 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.ArrayList;
+import java.util.List;
+import java.util.stream.Collectors;
+
 @Service
 @RequiredArgsConstructor
 public class accountService {
@@ -21,7 +25,17 @@ public class accountService {
     new accountDTO(accountRepository.save(new accountEntity(accountVO)));
   }
 
-  public accountEntity loginCheck(accountVO accountVO){
-    return accountQueryDSL.loginCheck(accountVO);
+  public accountDTO loginCheck(accountVO accountVO){
+    return new accountDTO(accountQueryDSL.loginCheck(accountVO));
+  }
+
+  public List<accountDTO> getUserAll(){
+    System.out.println("!!!!!!!!!!!!!");
+    return accountRepository.findAll().stream().map(accountDTO::new).collect(Collectors.toList());
+  }
+
+  public List<accountDTO> getSearchUsers(accountVO accountVO){
+    List<accountEntity> list = accountQueryDSL.getSearchUsers(accountVO);
+    return list.stream().map(accountDTO::new).collect(Collectors.toList());
   }
 }

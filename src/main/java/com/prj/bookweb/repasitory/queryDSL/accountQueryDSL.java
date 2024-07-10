@@ -1,5 +1,6 @@
 package com.prj.bookweb.repasitory.queryDSL;
 
+import com.prj.bookweb.entity.dto.accountDTO;
 import com.prj.bookweb.entity.entity.QaccountEntity;
 import com.prj.bookweb.entity.entity.accountEntity;
 import com.prj.bookweb.entity.vo.accountVO;
@@ -28,5 +29,23 @@ public class accountQueryDSL {
 
   private BooleanExpression checkUserInfo(accountVO accountVO){
     return QaccountEntity.accountEntity.userName.eq(accountVO.getUserName()).and(QaccountEntity.accountEntity.userBirth.eq(accountVO.getUserBirth())).and(QaccountEntity.accountEntity.userPhone.eq(accountVO.getUserPhone()));
+  }
+
+  public List<accountEntity> getSearchUsers(accountVO accountVO){
+    return jpaQueryFactory
+        .selectFrom(QaccountEntity.accountEntity)
+        .where(
+            checkSearchKeywordAndOption(accountVO)
+        )
+        .fetch();
+  }
+
+  private BooleanExpression checkSearchKeywordAndOption(accountVO accountVO){
+    if(accountVO.getSearchOption().equals("all")){
+      return QaccountEntity.accountEntity.userName.contains(accountVO.getSearchKeyword());
+    }
+    else {
+      return QaccountEntity.accountEntity.account.eq(accountVO.getSearchOption()).and(QaccountEntity.accountEntity.userName.contains(accountVO.getSearchKeyword()));
+    }
   }
 }
