@@ -6,16 +6,16 @@
     </div>
     <div class="main-right-header">
         <div>
-            <span id="user-name" class="user-name">{{userInfo.userName}}</span> <span>님 환영합니다.</span>
+            <span class="user-name">관리자</span> <span>님 환영합니다.</span>
         </div>
         <div>
-            <a href="">마이페이지</a>
-        </div>
-        <div v-if="userInfo.account=='사원'">
-            <a href="/admin/adminMain">관리자모드</a>
+            <a href="">연체관리</a>
         </div>
         <div>
-            <a href="/account/logout" @click="logout()">로그아웃</a>
+            <a href="">도서등록</a>
+        </div>
+        <div>
+            <a href="/main">회원화면</a>
         </div>
 
     </div>
@@ -31,7 +31,7 @@
         },
         methods : {
             logoClick : function () {
-                location.href = "/main";
+                location.href = "/admin/adminMain";
             }
         },
         created() {

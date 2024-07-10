@@ -1,15 +1,29 @@
- .main-header {
-    width: 75%;
-    top: 10px;
-    right: 20%;
+/* 플렉스 컨테이너 설정 */
+#headerApp {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 5px;
+    width: 100%;
+    box-sizing: border-box;
+}
+/* 왼쪽 헤더 설정 */
+.main-left-header {
+    flex: 1;
+}
+.main-left-header img {
+    max-height: 100px; /* 로고 이미지의 최대 높이 설정 */
+    cursor: pointer;
+}
+/* 오른쪽 헤더 설정 */
+.main-right-header {
+    flex: 3;
     text-align: right;
-    font-size: 1.5em;
-    margin: 0 auto;
+    font-size: 1.1em; /* 글씨를 크게 설정 */
 }
-.main-header div {
-    margin-bottom: 15px;
+.main-right-header div {
+    margin-bottom: 15px; /* 각 항목에 마진 추가 */
 }
-/* user-name 클래스를 굵게 설정 */
 .user-name {
     font-weight: bold;
 }

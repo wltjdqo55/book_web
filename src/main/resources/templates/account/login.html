@@ -32,6 +32,7 @@
         <div>
             <button type="button" @click="login()">로그인</button>
             <button type="button" @click="join()">회원가입</button>
+            <button type="button" @click="test()">정보자동기입</button>
         </div>
     </div>
 </div>
@@ -86,6 +87,12 @@
             },
             join : function () {
                 location.href = "/account/userAdd"
+            },
+            test : function () {
+                let vm = this;
+                vm.user.userName = "지성배";
+                vm.user.userPhone = "01086206367";
+                vm.user.userBirth = "19960415";
             }
         },
        filters: $.extend({}, vueFilters, {}),

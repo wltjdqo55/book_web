@@ -72,4 +72,12 @@ public class accountController {
     }
     return null;
   }
+
+  @GetMapping("/account/logout")
+  public String logout(HttpSession session){
+    if(session.getAttribute("userInfo") != null){
+      accountSession.closeSession(session);
+    }
+    return "redirect:/account/login";
+  }
 }
