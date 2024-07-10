@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>관리자모드 메인</title>
+    <link rel="stylesheet" href="/css/header.css">
+    <link rel="stylesheet" href="/css/admin.css">
+</head>
+<body>
+<div class="container" id="app">
+    <div id="header-container"></div>
+    <div class="container-wrap">
+        <div class="book-currently-borrowed userListClass">회원목록</div>
+    </div>
+    <div class="books-list">
+        <div class="search-div">
+            <input type="text" placeholder="이름을 입력해주세요." class="search-textBox" v-model="search.searchKeyword">
+            <input type="button" value="검색" class="search-button" @click="search_button()">
+        </div>
+        <div class="user-list-table">
+            <table border="1">
+                <tr>
+                    <td>이름</td>
+                    <td>생년월일</td>
+                    <td>전화번호</td>
+                    <td>이메일주소</td>
+                    <td>주소</td>
+                    <td>회원등급</td>
+                </tr>
+                <tr v-for="(item, index) in users">
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                </tr>
+            </table>
+        </div>
+    </div>
+</div>
+
+<script src="/plugins/vueJs/vue.js"></script>
+<script type="text/javascript" src="/plugins/axios/axios.min.js"></script>
+<script src="/dist/jquery/jquery.js"></script>
+<script src="/dist/jquery/jquery.min.js"></script>
+<script src="/dist/js/toggles-list-filter.js"></script>
+<script src="/plugins/toastr/toastr.min.js"></script>
+<script src="/plugins/toastUiTree/tui-tree.js"></script>
+<script src="/plugins/toastUiCalender/toastui-calendar.min.js"></script>
+<script src="/plugins/toastUiCalender/toastui-calendar.ie11.min.js"></script>
+<script src="/common/vue/vueCommon.js"></script>
+<script>
+    $(function() {
+        $('#header-container').load('/common/header/adminHeader.html');
+    });
+</script>
+<script>
+    new Vue({
+        el : "#app",
+        data : {
+            userInfo : {},
+            search : {
+                searchKeyword : ''
+            }
+        },
+        methods : {
+            loadData : function () {
+                let vm = this;
+                axios.get('/admin/getUserAll')
+                    .then(res => {
+
+                    })
+                    .catch(error => {
+                        console.error("Error fetching data: ", error);
+                    })
+            },
+            getUserInfo : function () {
+                let vm = this;
+                axios.get('/account/getUserInfo')
+                    .then(res => {
+                        vm.userInfo = res.data;
+                        localStorage.setItem('userInfo', JSON.stringify(vm.userInfo));
+                    })
+                    .catch(error => {
+                      console.error("Error fetching data: ", error);
+                    })
+            },
+            search_button : function () {
+
+            }
+        },
+       filters: {},
+       computed: {},
+       watch: {},
+       created() {},
+       mounted() {
+            this.getUserInfo();
+            this.loadData();
+       }
+     })
+</script>
+</body>
+</html>

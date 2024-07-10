@@ -9,7 +9,59 @@
 <body>
 <div class="container" id="app">
     <div id="header-container"></div>
-
+    <div class="container-wrap">
+        <div class="book-currently-borrowed">현재 대여중인 도서</div>
+    </div>
+    <div class="return-books">
+        <div class="return-books-div">
+            <input type="button" value="도서반납" />
+        </div>
+        <div class="return-books-table">
+            <table border="1">
+                <tr>
+                    <td>선택</td>
+                    <td>도서번호</td>
+                    <td>도서명</td>
+                    <td>분류명</td>
+                    <td>저자</td>
+                    <td>대여일자</td>
+                </tr>
+            </table>
+        </div>
+    </div>
+    <div class="container-wrap">
+        <div class="book-currently-borrowed">도서 목록</div>
+    </div>
+    <div class="books-list">
+        <div class="search-div">
+            <select class="search-selectBox" v-model="search.searchOption">
+                <option value="all">전체</option>
+                <option value="bookName">도서이름</option>
+                <option value="category">카테고리</option>
+                <option value="writer">글쓴이</option>
+                <option value="publisher">출판사</option>
+            </select>
+            <select class="search-selectBox" v-model="search.whetherToRent">
+                <option value="all">대여가능여부</option>
+                <option value="rentalPossible">대여가능</option>
+                <option value="rentalNotPossible">대여불가능</option>
+            </select>
+            <input type="text" placeholder="검색어를 입력해주세요." class="search-textBox" v-model="search.searchKeyword">
+            <input type="button" value="검색" class="search-button" @click="search_button()">
+            <input type="reset" value="초기화" class="invalidate-button" @click="invalidate_button()">
+        </div>
+        <div class="book-list-table">
+            <table border="1">
+                <tr>
+                    <td>도서번호</td>
+                    <td>도서명</td>
+                    <td>분류명</td>
+                    <td>저자</td>
+                    <td>대여가능여부</td>
+                </tr>
+            </table>
+        </div>
+    </div>
 </div>
 
 <script src="/plugins/vueJs/vue.js"></script>
@@ -31,7 +83,12 @@
     new Vue({
         el : "#app",
         data : {
-            userInfo : {}
+            userInfo : {},
+            search : {
+                searchOption : 'all',
+                whetherToRent : 'all',
+                searchKeyword : ''
+            }
         },
         methods : {
             getUserInfo : function () {
@@ -44,6 +101,15 @@
                     .catch(error => {
                       console.error("Error fetching data: ", error);
                     })
+            },
+            search_button : function () {
+
+            },
+            invalidate_button : function () {
+                let vm = this;
+                vm.search.searchOption = "all";
+                vm.search.whetherToRent = "all";
+                vm.search.searchKeyword = "";
             }
         },
        filters: {},
