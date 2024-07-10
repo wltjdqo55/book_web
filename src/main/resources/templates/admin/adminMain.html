@@ -14,6 +14,11 @@
     </div>
     <div class="books-list">
         <div class="search-div">
+            <select class="search-selectBox" v-model="search.searchOption">
+                <option value="all">전체</option>
+                <option value="member">회원</option>
+                <option value="employee">사원</option>
+            </select>
             <input type="text" placeholder="이름을 입력해주세요." class="search-textBox" v-model="search.searchKeyword">
             <input type="button" value="검색" class="search-button" @click="search_button()">
         </div>
@@ -28,12 +33,12 @@
                     <td>회원등급</td>
                 </tr>
                 <tr v-for="(item, index) in users">
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
+                    <td>{{item.userName}}</td>
+                    <td>{{item.userBirth | birth}}</td>
+                    <td>{{item.userPhone | tel}}</td>
+                    <td>{{item.userEmail}}</td>
+                    <td>{{item.userPostAddress}} {{item.userDetailAddress}}</td>
+                    <td>{{item.account}}</td>
                 </tr>
             </table>
         </div>
@@ -59,9 +64,10 @@
     new Vue({
         el : "#app",
         data : {
-            userInfo : {},
+            users : {},
             search : {
-                searchKeyword : ''
+                searchKeyword : '',
+                searchOption : 'all'
             }
         },
         methods : {
@@ -69,7 +75,7 @@
                 let vm = this;
                 axios.get('/admin/getUserAll')
                     .then(res => {
-
+                        vm.users = res.data;
                     })
                     .catch(error => {
                         console.error("Error fetching data: ", error);
@@ -79,7 +85,7 @@
                 let vm = this;
                 axios.get('/account/getUserInfo')
                     .then(res => {
-                        vm.userInfo = res.data;
+                        vm.users = res.data;
                         localStorage.setItem('userInfo', JSON.stringify(vm.userInfo));
                     })
                     .catch(error => {
@@ -87,10 +93,22 @@
                     })
             },
             search_button : function () {
-
+                let vm = this;
+                axios.get('/admin/getSearchUsers', {
+                    params : {
+                        searchOption : vm.search.searchOption,
+                        searchKeyword : vm.search.searchKeyword
+                    }
+                })
+                .then(res => {
+                    vm.users = res.data;
+                })
+                .catch(error => {
+                    console.error("Error fetching data: ", error);
+                })
             }
         },
-       filters: {},
+       filters: $.extend({}, vueFilters, {}),
        computed: {},
        watch: {},
        created() {},

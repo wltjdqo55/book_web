@@ -60,3 +60,10 @@
     background-color: #007bff; /* 테이블 머리글 배경색 */
     color: white; /* 테이블 머리글 글자색 */
 }
+
+.search-selectBox {
+    flex: 1; /* 남은 공간을 모두 차지 */
+    margin-right: 10px; /* 우측 여백 */
+    padding: 10px; /* 패딩 설정 */
+    font-size: 1em; /* 폰트 크기 설정 */
+}
