@@ -32,6 +32,6 @@ public class accountDTO {
     this.userBirth = entity.getUserBirth();
     this.userPostAddress = entity.getUserPostAddress();
     this.userDetailAddress = entity.getUserDetailAddress();
-    this.account = entity.getAccount();
+    this.account = entity.getAccount().getValue().toString();
   }
 }
