@@ -11,7 +11,7 @@
         <div>
             <a href="">마이페이지</a>
         </div>
-        <div v-if="userInfo.account=='employee'">
+        <div v-if="userInfo.account=='사원'">
             <a href="/admin/adminMain">관리자모드</a>
         </div>
         <div>
@@ -39,6 +39,7 @@
             let storedUserInfo = localStorage.getItem('userInfo');
             if (storedUserInfo) {
                 this.userInfo = JSON.parse(storedUserInfo);
+                console.log(this.userInfo);
             }
         }
     });

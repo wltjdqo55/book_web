@@ -36,7 +36,7 @@ public class accountController {
   @PostMapping("/account/userAddOK")
   public String userAdd(accountVO userVO){
     System.out.println(userVO);
-    userVO.setAccount("회원");
+    userVO.setAccount("member");
     accountService.userAdd(userVO);
 
     return "/account/userAdd.html";
@@ -67,6 +67,7 @@ public class accountController {
   @ResponseBody
   public accountDTO getUserInfo(Model model, HttpSession session){
     if(session.getAttribute("userInfo") != null){
+      System.out.println(session.getAttribute("userInfo"));
       return (accountDTO) session.getAttribute("userInfo");
     }
     return null;

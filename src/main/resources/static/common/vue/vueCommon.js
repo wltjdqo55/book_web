@@ -28,11 +28,17 @@ const vueFilters = {
     },
     birth: function (v) {
         let vv = "";
-        vv += v.substr(0,4);
-        vv += "-";
-        vv += v.substr(4,2);
-        vv += "-";
-        vv += v.substr(6,2);
-        return vv;
+        if (v == null){
+            vv = "";
+        } else if (v && typeof v === 'string' && v.length >= 8) {
+            vv += v.substring(0, 4);
+            vv += "-";
+            vv += v.substring(4, 6);
+            vv += "-";
+            vv += v.substring(6, 8);
+            return vv;
+        } else {
+            return "Invalid input"; // 유효하지 않은 입력에 대한 처리
+        }
     }
 };

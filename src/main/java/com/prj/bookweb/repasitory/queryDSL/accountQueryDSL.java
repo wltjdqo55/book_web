@@ -1,5 +1,6 @@
 package com.prj.bookweb.repasitory.queryDSL;
 
+import com.prj.bookweb.eNum.eNumAccountType;
 import com.prj.bookweb.entity.dto.accountDTO;
 import com.prj.bookweb.entity.entity.QaccountEntity;
 import com.prj.bookweb.entity.entity.accountEntity;
@@ -44,8 +45,12 @@ public class accountQueryDSL {
     if(accountVO.getSearchOption().equals("all")){
       return QaccountEntity.accountEntity.userName.contains(accountVO.getSearchKeyword());
     }
-    else {
-      return QaccountEntity.accountEntity.account.eq(accountVO.getSearchOption()).and(QaccountEntity.accountEntity.userName.contains(accountVO.getSearchKeyword()));
+    else if(accountVO.getSearchOption().equals("member")){
+      return QaccountEntity.accountEntity.account.eq(eNumAccountType.member).and(QaccountEntity.accountEntity.userName.contains(accountVO.getSearchKeyword()));
     }
+    else if(accountVO.getSearchOption().equals("employee")){
+      return QaccountEntity.accountEntity.account.eq(eNumAccountType.employee).and(QaccountEntity.accountEntity.userName.contains(accountVO.getSearchKeyword()));
+    }
+    return null;
   }
 }

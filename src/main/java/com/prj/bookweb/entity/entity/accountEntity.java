@@ -1,5 +1,6 @@
 package com.prj.bookweb.entity.entity;
 
+import com.prj.bookweb.eNum.eNumAccountType;
 import com.prj.bookweb.entity.vo.accountVO;
 import jakarta.persistence.*;
 import lombok.Getter;
@@ -27,7 +28,8 @@ public class accountEntity {
 
   private String userDetailAddress;
 
-  private String account;
+  @Enumerated(EnumType.STRING)
+  private eNumAccountType account;
 
   public accountEntity(accountVO accountVO){
     this.id = accountVO.getId();
@@ -37,7 +39,12 @@ public class accountEntity {
     this.userBirth = accountVO.getUserBirth();
     this.userPostAddress = accountVO.getUserPostAddress();
     this.userDetailAddress = accountVO.getUserDetailAddress();
-    this.account = accountVO.getAccount();
+    if(eNumAccountType.employee.name().equals(accountVO.getAccount())){
+      this.account = eNumAccountType.employee;
+    }
+    else if(eNumAccountType.member.name().equals(accountVO.getAccount())){
+      this.account = eNumAccountType.member;
+    }
   }
 
 }
