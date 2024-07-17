@@ -30,6 +30,8 @@ const vueFilters = {
         let vv = "";
         if (v == null){
             vv = "";
+        } else if(v.length < 8) {
+            vv = v;
         } else if (v && typeof v === 'string' && v.length >= 8) {
             vv += v.substring(0, 4);
             vv += "-";
@@ -38,7 +40,8 @@ const vueFilters = {
             vv += v.substring(6, 8);
             return vv;
         } else {
-            return "Invalid input"; // 유효하지 않은 입력에 대한 처리
+            vv = v;
         }
+        return vv;
     }
-};
+}

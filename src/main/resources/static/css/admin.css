@@ -20,13 +20,6 @@
     width: 30%;
 }
 
-.container {
-    max-width: 1280px; /* 최대 너비 설정 */
-    margin: 0 auto;
-    padding: 0 15px; /* 양쪽 여백 설정 */
-    box-sizing: border-box; /* padding이 너비에 포함되도록 설정 */
-    padding-top: 20px; /* 헤더와 내용물 사이에 간격 추가 */
-}
 
 .search-button {
     background-color: #007bff; /* 배경색 */

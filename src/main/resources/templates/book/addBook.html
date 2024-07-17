@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>도서 등록</title>
+    <link rel="stylesheet" href="/css/header.css">
+    <link rel="stylesheet" href="/css/addBook.css">
+    <link rel="stylesheet" href="/css/body.css">
+</head>
+<body>
+<div id="app">
+    <div id="header-container"></div>
+    <div class="container-wrap">
+        <div class="addBook-title">도서등록</div>
+    </div>
+    <div class="form-container">
+        <div>
+            <label for="bookNumber">도서번호</label>
+            <input type="text" id="bookNumber" placeholder="도서 번호를 입력하세요." maxlength="50">
+        </div>
+        <div>
+            <label for="bookName">도서명</label>
+            <input type="text" id="bookName" placeholder="도서이름을 입력하세요." maxlength="50">
+        </div>
+        <div>
+            <label for="bookWriter">저자</label>
+            <input type="text" id="bookWriter" placeholder="글쓴이를 입력하세요." maxlength="50">
+        </div>
+        <div>
+            <label for="publisher">출판사</label>
+            <input type="text" id="publisher" placeholder="출판사를 입력하세요." maxlength="50">
+        </div>
+        <div>
+            <label>분류명</label>
+                <select>
+                    <option value="철학">철학</option>
+                    <option value="종교">종교</option>
+                    <option value="사회학">사회학</option>
+                    <option value="자연과학">자연과학</option>
+                    <option value="기술과학">기술과학</option>
+                    <option value="언어">언어</option>
+                    <option value="문학">문학</option>
+                    <option value="예술">예술</option>
+                    <option value="문학">문학</option>
+                    <option value="역사">역사</option>
+                </select>
+        </div>
+        <div>
+            <label for="publicationDate">발행일</label>
+            <input type="text" id="publicationDate" placeholder="발행일을 8자리 숫자로 입력하세요." maxlength="8">
+        </div>
+        <div>
+            <label>이미지</label>
+            <input type="file" id="bookImage" class="fileButton" accept=".gif,.jpg,.jpeg,.png" @change="onChangeFile">
+            <div class="image-preview" v-if="imageUrl">
+                <img :src="imageUrl" alt="이미지 미리보기">
+            </div>
+        </div>
+        <div>
+            <button type="button">도서 등록</button>
+        </div>
+    </div>
+</div>
+
+<script src="/plugins/vueJs/vue.js"></script>
+<script type="text/javascript" src="/plugins/axios/axios.min.js"></script>
+<script src="/dist/jquery/jquery.js"></script>
+<script src="/dist/jquery/jquery.min.js"></script>
+<script src="/dist/js/toggles-list-filter.js"></script>
+<script src="/plugins/toastr/toastr.min.js"></script>
+<script src="/plugins/toastUiTree/tui-tree.js"></script>
+<script src="/plugins/toastUiCalender/toastui-calendar.min.js"></script>
+<script src="/plugins/toastUiCalender/toastui-calendar.ie11.min.js"></script>
+<script src="/common/vue/vueCommon.js"></script>
+
+<script>
+    $(function() {
+        $('#header-container').load('/common/header/adminHeader.html');
+    });
+</script>
+<script>
+    new Vue({
+        el : "#app",
+        data : {
+            users : {},
+            imageUrl: ''
+        },
+        methods : {
+            getUserInfo : function () {
+                let vm = this;
+                axios.get('/account/getUserInfo')
+                    .then(res => {
+                        vm.users = res.data;
+                        localStorage.setItem('userInfo', JSON.stringify(vm.users));
+                    })
+                    .catch(error => {
+                      console.error("Error fetching data: ", error);
+                    })
+            },
+            onChangeFile(event) {
+                const file = event.target.files[0];
+                if (file) {
+                    const reader = new FileReader();
+                    reader.onload = (e) => {
+                        this.imageUrl = e.target.result;
+                    };
+                    reader.readAsDataURL(file);
+                }
+            }
+        },
+       filters: $.extend({}, vueFilters, {}),
+       computed: {},
+       watch: {},
+       created() {},
+       mounted() {
+            this.getUserInfo();
+       }
+     })
+</script>
+</body>
+</html>
