@@ -1,0 +1,87 @@
+.container-wrap {
+     height: 100%;
+     margin-top : 50px;
+}
+
+.addBook-title {
+    align-items: center;
+    display: flex;
+    justify-content: center;
+    font-weight: bold;
+    font-size : 2em;
+    margin: 50px;
+}
+.form-container {
+    background-color: white;
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    width: 300px;
+}
+.form-container div {
+    margin-bottom: 15px;
+}
+label {
+    display: block;
+    margin-bottom: 5px;
+    font-weight: bold;
+}
+input[type="text"] {
+    width: 100%;
+    padding: 10px;
+    margin-top: 5px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    box-sizing: border-box;
+}
+button {
+    width: 100%;
+    padding: 10px;
+    background-color: #007BFF;
+    color: white;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    margin-top: 5px;
+}
+button:hover {
+    background-color: #0056b3;
+}
+
+/* select 요소 스타일 */
+select {
+    width: 100%;
+    padding: 10px;
+    margin-top: 5px;
+    border: 1px solid #999;
+    border-radius: 4px;
+    box-sizing: border-box;
+    background-color: #f9f9f9; /* 배경 색상을 약간 다르게 설정 */
+    cursor: pointer; /* 포인터 커서를 설정하여 상호작용 요소임을 나타냄 */
+}
+
+select option {
+    color: #333;
+}
+
+/* 파일 입력 요소 스타일 */
+input[type="file"] {
+    width: 100%;
+    padding: 10px;
+    margin-top: 5px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    box-sizing: border-box;
+    background-color: white;
+}
+
+/* 이미지 미리보기 스타일 */
+.image-preview {
+    margin-top: 10px;
+}
+.image-preview img {
+    max-width: 100%;
+    max-height: 200px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+}

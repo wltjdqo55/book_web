@@ -1,11 +1,3 @@
-.container {
-    max-width: 1280px; /* 최대 너비 설정 */
-    margin: 0 auto;
-    padding: 0 15px; /* 양쪽 여백 설정 */
-    box-sizing: border-box; /* padding이 너비에 포함되도록 설정 */
-    padding-top: 20px; /* 헤더와 내용물 사이에 간격 추가 */
-}
-
 .container-wrap {
     height: 100%;
     margin-top : 50px;
@@ -123,3 +115,5 @@
     background-color: #007bff; /* 테이블 머리글 배경색 */
     color: white; /* 테이블 머리글 글자색 */
 }
+
+

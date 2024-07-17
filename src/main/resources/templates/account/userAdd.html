@@ -3,6 +3,8 @@
 <head>
     <meta charset="UTF-8">
     <title>회원가입</title>
+    <link rel="stylesheet" href="/css/body.css">
+    <link rel="stylesheet" href="/css/userAdd.css">
 </head>
 <body>
 <div id="app">
@@ -11,13 +13,13 @@
         <tr>
             <td>이름</td>
             <td>
-                <input type="text" placeholder="이름을 입력해주세요." v-model="user.userName" maxlength="20" >
+                <input type="text" placeholder="이름을 입력해주세요." v-model="user.userName" maxlength="20">
             </td>
         </tr>
         <tr>
             <td>생년월일</td>
             <td>
-                <input type="text" placeholder="8자리 입력 ex)19960415" maxlength="8" v-model="user.userBirth" >
+                <input type="text" placeholder="8자리 입력 ex)19960415" maxlength="8" v-model="user.userBirth">
             </td>
         </tr>
         <tr>
@@ -35,7 +37,7 @@
         <tr>
             <td>이메일</td>
             <td>
-                <input type="text" id="userEmail" placeholder="이메일 주소를 형식에 맞게 입력해주세요." v-model="user.userEmail" maxlength="50" >
+                <input type="text" id="userEmail" placeholder="이메일 주소를 형식에 맞게 입력해주세요." v-model="user.userEmail" maxlength="50">
             </td>
         </tr>
     </table>
