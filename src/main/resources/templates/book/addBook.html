@@ -97,17 +97,6 @@
             image : null
         },
         methods : {
-            getUserInfo : function () {
-                let vm = this;
-                axios.get('/account/getUserInfo')
-                    .then(res => {
-                        vm.users = res.data;
-                        localStorage.setItem('userInfo', JSON.stringify(vm.users));
-                    })
-                    .catch(error => {
-                      console.error("Error fetching data: ", error);
-                    })
-            },
             onChangeFile(event) {
                 const file = event.target.files[0];
                 if (file) {
@@ -186,7 +175,6 @@
        watch: {},
        created() {},
        mounted() {
-            this.getUserInfo();
        }
      })
 </script>

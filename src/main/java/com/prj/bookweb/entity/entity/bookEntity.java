@@ -5,6 +5,9 @@ import jakarta.persistence.*;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import java.util.ArrayList;
+import java.util.List;
+
 @Data
 @Entity
 @NoArgsConstructor
@@ -28,6 +31,9 @@ public class bookEntity {
   private String bookPublicationDate;
 
   private boolean reserved;
+
+  @OneToMany(fetch = FetchType.LAZY, mappedBy = "book")
+  private List<fileEntity> files = new ArrayList<>();
 
   public bookEntity(bookVO bookVO){
     this.id = bookVO.getId();

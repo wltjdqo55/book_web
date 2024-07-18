@@ -31,7 +31,6 @@ public class adminController {
   @GetMapping("/admin/getSearchUsers")
   @ResponseBody
   public List<accountDTO> getSearchUsers(accountVO accountVO){
-    System.out.println(accountVO);
     return accountService.getSearchUsers(accountVO);
   }
 }

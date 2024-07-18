@@ -1,8 +1,12 @@
 package com.prj.bookweb.entity.dto;
 
 import com.prj.bookweb.entity.entity.bookEntity;
+import com.prj.bookweb.entity.entity.fileEntity;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+
+import java.util.ArrayList;
+import java.util.List;
 
 @Data
 @NoArgsConstructor
@@ -24,6 +28,8 @@ public class bookDTO {
 
   private boolean reserved;
 
+  private List<fileDTO> files = new ArrayList<>();
+
   public bookDTO(bookEntity bookEntity) {
     this.id = bookEntity.getId();
     this.bookId = bookEntity.getBookId();
@@ -32,5 +38,9 @@ public class bookDTO {
     this.bookPublisher = bookEntity.getBookPublisher();
     this.bookCategory = bookEntity.getBookCategory();
     this.bookPublicationDate = bookEntity.getBookPublicationDate();
+
+    bookEntity.getFiles().forEach(t -> {
+      files.add(new fileDTO(t));
+    });
   }
 }

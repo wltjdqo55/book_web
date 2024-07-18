@@ -2,10 +2,11 @@ package com.prj.bookweb.entity.entity;
 
 import jakarta.persistence.*;
 import lombok.Data;
+import lombok.Getter;
 import lombok.NoArgsConstructor;
 
-@Data
 @NoArgsConstructor
+@Getter
 @Entity
 @Table(name="file")
 public class fileEntity {
@@ -22,7 +23,7 @@ public class fileEntity {
 
   private String fileName;
 
-  @OneToOne(fetch = FetchType.LAZY)
+  @ManyToOne(fetch = FetchType.LAZY)
   @JoinColumn(name = "book_id")
   private bookEntity book;
 
