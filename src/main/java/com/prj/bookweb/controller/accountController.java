@@ -35,7 +35,6 @@ public class accountController {
 
   @PostMapping("/account/userAddOK")
   public String userAdd(accountVO userVO){
-    System.out.println(userVO);
     userVO.setAccount("member");
     accountService.userAdd(userVO);
 
@@ -67,7 +66,6 @@ public class accountController {
   @ResponseBody
   public accountDTO getUserInfo(Model model, HttpSession session){
     if(session.getAttribute("userInfo") != null){
-      System.out.println(session.getAttribute("userInfo"));
       return (accountDTO) session.getAttribute("userInfo");
     }
     return null;

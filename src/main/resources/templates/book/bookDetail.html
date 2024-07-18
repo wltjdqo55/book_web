@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>도서 상세</title>
+    <link rel="stylesheet" href="/css/body.css">
+    <link rel="stylesheet" href="/css/header.css">
+    <link rel="stylesheet" href="/css/main.css">
+</head>
+<body>
+<div id="app">
+    <div id="header-container"></div>
+
+</div>
+
+<script src="/plugins/vueJs/vue.js"></script>
+<script type="text/javascript" src="/plugins/axios/axios.min.js"></script>
+<script src="/dist/jquery/jquery.js"></script>
+<script src="/dist/jquery/jquery.min.js"></script>
+<script src="/dist/js/toggles-list-filter.js"></script>
+<script src="/plugins/toastr/toastr.min.js"></script>
+<script src="/plugins/toastUiTree/tui-tree.js"></script>
+<script src="/plugins/toastUiCalender/toastui-calendar.min.js"></script>
+<script src="/plugins/toastUiCalender/toastui-calendar.ie11.min.js"></script>
+<script src="/common/vue/vueCommon.js"></script>
+
+<script>
+    $(function() {
+        $('#header-container').load('/common/header/header.html');
+    });
+</script>
+
+<script>
+    new Vue({
+        el : "#app",
+        data : {
+            userInfo : {},
+            book : {},
+            id : 0
+        },
+        methods : {
+            loadData : function () {
+                let vm = this;
+                vm.id = [[${id}]];
+                console.log(vm.id);
+                axios.get('/book/getBookDetailInfo/' + vm.id)
+                    .then(res => {
+                        console.log(res.data);
+                        vm.book = res.data;
+                      })
+                      .catch(error => {
+                        console.error('Error fetching data:', error);
+                      });
+            }
+        },
+       filters: {},
+       computed: {},
+       watch: {},
+       created() {},
+       mounted() {
+            this.loadData();
+       }
+     })
+</script>
+
+</body>
+</html>

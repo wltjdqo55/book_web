@@ -74,4 +74,8 @@ public class bookService {
   public List<bookDTO> getBookList(){
     return bookRepository.findAll().stream().map(bookDTO::new).collect(Collectors.toList());
   }
+
+  public bookDTO getBookDetailInfo(long id){
+    return new bookDTO(bookRepository.findById(id).orElse(new bookEntity()));
+  }
 }

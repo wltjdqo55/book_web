@@ -6,7 +6,9 @@ import com.prj.bookweb.service.bookService;
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
@@ -33,5 +35,17 @@ public class bookController {
   @ResponseBody
   public List<bookDTO> getBookList(){
     return bookService.getBookList();
+  }
+
+  @GetMapping("/book/bookDetail/{id}")
+  public String bookDetail(@PathVariable long id, Model model){
+    model.addAttribute("id", id);
+    return "/book/bookDetail.html";
+  }
+
+  @GetMapping("/book/getBookDetailInfo/{id}")
+  @ResponseBody
+  public bookDTO getBookDetailInfo(@PathVariable long id){
+    return bookService.getBookDetailInfo(id);
   }
 }
