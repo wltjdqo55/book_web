@@ -58,7 +58,12 @@
                     <td>도서명</td>
                     <td>분류명</td>
                     <td>저자</td>
-                    <td>대여가능여부</td>
+                </tr>
+                <tr v-for="(item, index) in book">
+                    <td><a :href="'/book/bookDetail/' + item.id">{{item.bookId}}</a></td>
+                    <td><a :href="'/book/bookDetail/' + item.id">{{item.bookName}}</a></td>
+                    <td>{{item.bookCategory}}</td>
+                    <td>{{item.bookWriter}}</td>
                 </tr>
             </table>
         </div>
@@ -89,9 +94,28 @@
                 searchOption : 'all',
                 whetherToRent : 'all',
                 searchKeyword : ''
+            },
+            book : {
+                id : 0,
+                bookId : '',
+                bookName : '',
+                bookCategory : '',
+                bookWriter : '',
+                reserved : false
             }
         },
         methods : {
+            loadData : function () {
+                let vm = this;
+                axios.get('/book/getBookList')
+                    .then(res => {
+                        console.log(res.data);
+                        vm.book = res.data;
+                    })
+                    .catch(error => {
+                      console.error("Error fetching data: ", error);
+                    })
+            },
             getUserInfo : function () {
                 let vm = this;
                 axios.get('/account/getUserInfo')
@@ -119,6 +143,7 @@
        created() {},
        mounted() {
             this.getUserInfo();
+            this.loadData();
        }
      })
 </script>

@@ -22,7 +22,7 @@ public class bookDTO {
 
   private String bookPublicationDate;
 
-  private boolean isReserved = false;
+  private boolean reserved;
 
   public bookDTO(bookEntity bookEntity) {
     this.id = bookEntity.getId();
