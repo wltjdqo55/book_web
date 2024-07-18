@@ -1,5 +1,6 @@
 package com.prj.bookweb.controller;
 
+import com.prj.bookweb.entity.dto.bookDTO;
 import com.prj.bookweb.entity.vo.bookVO;
 import com.prj.bookweb.service.bookService;
 import lombok.Getter;
@@ -22,8 +23,7 @@ public class bookController {
 
   @PostMapping("/book/addBook")
   @ResponseBody
-  public boolean addBook(bookVO bookVO) {
-     System.out.println(bookVO);
+  public bookDTO addBook(bookVO bookVO) {
      return bookService.addBook(bookVO);
   }
 }
