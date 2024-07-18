@@ -27,6 +27,8 @@ public class bookEntity {
 
   private String bookPublicationDate;
 
+  private boolean isReserved;
+
   public bookEntity(bookVO bookVO){
     this.Id = bookVO.getId();
     this.bookId = bookVO.getBookId();

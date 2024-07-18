@@ -16,19 +16,19 @@
     <div class="form-container">
         <div>
             <label for="bookNumber">도서번호</label>
-            <input type="text" id="bookNumber" placeholder="도서 번호를 입력하세요." maxlength="50" v-model="book.bookId">
+            <input type="text" id="bookNumber" placeholder="도서 번호를 10자리 이상 입력해 주세요." maxlength="13" v-model="book.bookId">
         </div>
         <div>
             <label for="bookName">도서명</label>
-            <input type="text" id="bookName" placeholder="도서이름을 입력하세요." maxlength="50" v-model="book.bookName">
+            <input type="text" id="bookName" placeholder="도서이름을 입력해 주세요." maxlength="50" v-model="book.bookName">
         </div>
         <div>
             <label for="bookWriter">저자</label>
-            <input type="text" id="bookWriter" placeholder="글쓴이를 입력하세요." maxlength="50" v-model="book.bookWriter">
+            <input type="text" id="bookWriter" placeholder="글쓴이를 입력해 주세요." maxlength="50" v-model="book.bookWriter">
         </div>
         <div>
             <label for="publisher">출판사</label>
-            <input type="text" id="publisher" placeholder="출판사를 입력하세요." maxlength="50" v-model="book.bookPublisher">
+            <input type="text" id="publisher" placeholder="출판사를 입력해 주세요." maxlength="50" v-model="book.bookPublisher">
         </div>
         <div>
             <label>분류명</label>
@@ -47,7 +47,7 @@
         </div>
         <div>
             <label for="publicationDate">발행일</label>
-            <input type="text" id="publicationDate" placeholder="발행일을 8자리 숫자로 입력하세요." maxlength="8" v-model="book.bookPublicationDate">
+            <input type="text" id="publicationDate" placeholder="발행일을 8자리 숫자로 입력해 주세요." maxlength="8" v-model="book.bookPublicationDate">
         </div>
         <div>
             <label>이미지</label>
@@ -58,7 +58,7 @@
         </div>
         <div>
             <button type="button" @click="addBook()">도서 등록</button>
-            <button type="button" @click="">취소</button>
+            <a href="/admin/adminMain"><button type="button">취소</button></a>
         </div>
     </div>
 </div>
@@ -151,23 +151,23 @@
             },
             bookCheck : function () {
                 let vm = this;
-                if(vm.book.bookId == '' || vm.book.bookId == null){
-                    alert("도서번호를 입력하세요.");
+                if(vm.book.bookId == '' || vm.book.bookId == null || vm.book.bookId.length<10 || !vm.onlyNumberCheck(vm.book.bookId)){
+                    alert("도서번호는 ISBN에 따라 10자리 이상의 숫자를 입력해 주세요.");
                     return false;
                 } else if(vm.book.bookName == '' || vm.book.bookName == null){
-                    alert("도서명을 입력하세요.");
+                    alert("도서명을 입력해 주세요.");
                     return false;
                 } else if(vm.book.bookWriter == '' || vm.book.bookWriter == null){
-                    alert("저자를 입력하세요.");
+                    alert("저자를 입력해 주세요.");
                     return false;
                 } else if(vm.book.bookPublisher == '' || vm.book.bookPublisher == null){
-                    alert("출판사를 입력하세요.");
+                    alert("출판사를 입력해 주세요.");
                     return false;
                 } else if(vm.book.bookPublicationDate == '' || vm.book.bookPublicationDate == null || vm.book.bookPublicationDate.length < 8 || !vm.onlyNumberCheck(vm.book.bookPublicationDate)){
-                    alert("발행일을 8자리 숫자로 입력하세요.");
+                    alert("발행일을 8자리 숫자로 입력해 주세요.");
                     return false;
                 } else if(vm.imageUrl == ''){
-                    alert("이미지를 등록하세요(필수)");
+                    alert("이미지를 등록해 주세요(필수)");
                     return false;
                 }
 

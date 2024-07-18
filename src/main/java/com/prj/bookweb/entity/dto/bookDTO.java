@@ -1,5 +1,6 @@
 package com.prj.bookweb.entity.dto;
 
+import com.prj.bookweb.entity.entity.bookEntity;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
@@ -7,7 +8,7 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 public class bookDTO {
 
-  private long id;
+  long id;
 
   private String bookId;
 
@@ -20,4 +21,16 @@ public class bookDTO {
   private String bookCategory;
 
   private String bookPublicationDate;
+
+  private boolean isReserved = false;
+
+  public bookDTO(bookEntity bookEntity) {
+    this.id = bookEntity.getId();
+    this.bookId = bookEntity.getBookId();
+    this.bookName = bookEntity.getBookName();
+    this.bookWriter = bookEntity.getBookWriter();
+    this.bookPublisher = bookEntity.getBookPublisher();
+    this.bookCategory = bookEntity.getBookCategory();
+    this.bookPublicationDate = bookEntity.getBookPublicationDate();
+  }
 }

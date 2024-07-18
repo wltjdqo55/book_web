@@ -26,4 +26,6 @@ public class bookVO {
 
   private List<MultipartFile> bookImage;
 
+  private boolean isReserved;
+
 }
