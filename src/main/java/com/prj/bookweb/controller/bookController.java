@@ -10,6 +10,8 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import java.util.List;
+
 @Controller
 @RequiredArgsConstructor
 public class bookController {
@@ -25,5 +27,11 @@ public class bookController {
   @ResponseBody
   public bookDTO addBook(bookVO bookVO) {
      return bookService.addBook(bookVO);
+  }
+
+  @GetMapping("/book/getBookList")
+  @ResponseBody
+  public List<bookDTO> getBookList(){
+    return bookService.getBookList();
   }
 }

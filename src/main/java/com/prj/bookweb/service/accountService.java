@@ -30,7 +30,6 @@ public class accountService {
   }
 
   public List<accountDTO> getUserAll(){
-    System.out.println("!!!!!!!!!!!!!");
     return accountRepository.findAll().stream().map(accountDTO::new).collect(Collectors.toList());
   }
 

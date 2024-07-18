@@ -1,5 +1,6 @@
 package com.prj.bookweb.service;
 
+import com.prj.bookweb.entity.dto.accountDTO;
 import com.prj.bookweb.entity.dto.bookDTO;
 import com.prj.bookweb.entity.entity.bookEntity;
 import com.prj.bookweb.entity.entity.fileEntity;
@@ -15,6 +16,7 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.util.List;
 import java.util.Objects;
+import java.util.stream.Collectors;
 
 @Service
 @RequiredArgsConstructor
@@ -67,5 +69,9 @@ public class bookService {
 
       fileRepository.save(new fileEntity(multipartFile.getOriginalFilename(), path, filePoint, id, fileName));
     }
+  }
+
+  public List<bookDTO> getBookList(){
+    return bookRepository.findAll().stream().map(bookDTO::new).collect(Collectors.toList());
   }
 }
